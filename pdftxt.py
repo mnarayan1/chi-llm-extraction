@@ -13,7 +13,7 @@ def convert_pdf_to_txt(pdf_path, txt_path):
     with open(txt_path, 'w', encoding='utf-8') as txt_file:
         txt_file.write(text_content)
 
-def output_txt():
+def pdf_files_to_convert():
     pdf_paths = []
     for filename in os.listdir('.'):
         if filename.endswith('.pdf'):
@@ -25,10 +25,15 @@ def output_txt():
     return pdf_paths
         
 
-pdf_names = output_txt()
+def pdf_to_txt():
+    pdf_names = pdf_files_to_convert()
 
-for pdf_name in pdf_names:
-    output_name = os.path.splitext(os.path.basename(pdf_name))[0] + '.txt'
-    convert_pdf_to_txt(pdf_name, output_name)
+    output_folder = "converted_txt"
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
-print("PDF converted to text successfully!")
+    for pdf_name in pdf_names:
+        output_name = os.path.join(output_folder, os.path.splitext(os.path.basename(pdf_name))[0] + '.txt')
+        convert_pdf_to_txt(pdf_name, output_name)
+
+    print("PDF converted to text successfully, output files in converted_txt")

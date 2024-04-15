@@ -1,4 +1,5 @@
 import re
+import os
 
 def remove_citations_and_links(text):
     citation_pattern = r'\d+\.\s*[^.]+\.'
@@ -21,7 +22,9 @@ def clean_file(input_file, output_file):
     with open(output_file, 'w') as f:
         f.write(cleaned_content)
 
-input_file = "input.txt"
-output_file = "output.txt"
-clean_file(input_file, output_file)
-print("Citations, links, and text after the last instance of 'References', 'REFERENCES', 'Citations', or 'citations' removed. Output written to output.txt.")
+def process_txt():
+    for file_name in os.listdir("converted_txt"):
+        if file_name.endswith(".txt"):
+            input_file = os.path.join("converted_txt", file_name)
+            clean_file(input_file, input_file)
+    print("All files processed.")
