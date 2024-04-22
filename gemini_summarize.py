@@ -1,8 +1,9 @@
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
+import textwrap
 
-def gemini_abstractive(input_file):
+def gemini_abstractive(input_file, sources):
     load_dotenv()
 
     api_key = os.getenv("GOOGLE_API_KEY")
@@ -19,6 +20,11 @@ def gemini_abstractive(input_file):
     response = model.generate_content(prompt)
 
     with open("final_summary.txt", 'w') as f:
-        f.write(response.candidates[0].content.parts[0].text)
+        text = f"The following summary was generated from: {sources}" + "\n"
+        text += response.candidates[0].content.parts[0].text
+        # f.write(text)
+        f.write(textwrap.fill(text, width=100))
 
     return response.candidates[0].content.parts[0].text
+
+gemini_abstractive('output.txt', 'sources')
