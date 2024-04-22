@@ -34,6 +34,7 @@ def pdf_to_txt():
 
     for pdf_name in pdf_names:
         output_name = os.path.join(output_folder, os.path.splitext(os.path.basename(pdf_name))[0] + '.txt')
+        print(f"now converting {pdf_name}")
         convert_pdf_to_txt(pdf_name, output_name)
 
     print("PDF converted to text successfully, output files in converted_txt")

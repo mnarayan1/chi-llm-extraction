@@ -19,12 +19,11 @@ def gemini_abstractive(input_file, sources):
 
     response = model.generate_content(prompt)
 
+    print("generating abstractive summary")
+
     with open("final_summary.txt", 'w') as f:
         text = f"The following summary was generated from: {sources}" + "\n"
         text += response.candidates[0].content.parts[0].text
-        # f.write(text)
         f.write(textwrap.fill(text, width=100))
 
-    return response.candidates[0].content.parts[0].text
-
-gemini_abstractive('output.txt', 'sources')
+    print("finished generating abstractive summary")

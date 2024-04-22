@@ -14,6 +14,7 @@ def summarize_text(input_file):
     return summary
 
 def summarize_paper_collection():
+    print("creating extractive summaries, this will take a moment")
     txt_files = []
     txt_summaries = []
     for filename in os.listdir('converted_txt'):
@@ -21,7 +22,9 @@ def summarize_paper_collection():
             txt_files.append(filename)
 
     for txt_file in txt_files:
+        print(f"currently summarizing {txt_file}")
         txt_summaries.append(summarize_text(txt_file))
+        print(f"finished summarizing {txt_file}")
 
     all_summaries = ''.join(txt_summaries)
 
